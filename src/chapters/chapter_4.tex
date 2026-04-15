@@ -1,0 +1,184 @@
+\section{有心力场}
+\subsection{代数法解氢原子}
+哈密顿量
+$$
+H = \frac{p^2}{2\mu} - \frac{\kappa}{r}
+$$
+隆格-楞茨矢量
+$$
+\vec R = \frac{1}{2\mu\kappa}\left(\vec p\times \vec L - \vec L \times \vec p\right) - \frac{\vec r}{r}
+$$
+利用
+\begin{align*}
+&\vec p\times \vec L + \vec L \times \vec p \\
+&= \epsilon_{ijk}p_i \epsilon_{lmj}r_l p_m + \epsilon_{ijk}\epsilon_{lmi}r_l p_m p_j\\
+&= -p_i r_i p_k + p_i r_k p_i + r_j p_k p_j - r_k p_j p_j\\
+&= (-p_i r_i+r_i p_i) p_k + (p_i r_k - r_k p_i)p_i = 3i\hbar p_k - i \hbar \delta_{ik}p_i = 2i\hbar p_k
+\end{align*}
+化为
+\begin{align*}
+\vec R = \frac{1}{\mu \kappa}(\vec p \times \vec L - i\hbar \vec p) - \frac{\vec r}{r}
+\end{align*}
+\begin{theorem}
+$[R_i, H] = 0$
+\end{theorem}
+\begin{proof}
+\begin{align*}
+[R,\frac{1}{r}] &=  \frac{1}{\mu \kappa}([\vec p, \frac{1}{r}] \times \vec L + \vec p \times [\vec L, \frac{1}{r}] - i\hbar [\vec p, \frac{1}{r}])\\
+&=\frac{1}{\mu\kappa}\left(i\hbar \frac{\vec r}{r^3}\times \vec L + \hbar^2 \frac{\vec r}{r^3}\right)\\
+&= \frac{1}{\mu\kappa}\left(i\hbar \frac{1}{r^3} \vec r(\vec r\cdot \vec p) - \frac{1}{r}\vec p + \hbar^2 \frac{\vec r}{r^3}\right)
+\end{align*}
+\begin{align*}
+[R, p^2] &= -[\frac{\vec r}{r}, p^2]\\
+&= - [\frac{\vec r}{r}, \vec p] \cdot \vec p - \vec p \cdot[\frac{\vec r}{r}, \vec p]\\
+&= 2 i\hbar\left(\frac{\vec r \vec r}{r^3} \cdot \vec p - \frac{1}{r}\vec p + \vec p \cdot \frac{\vec r \vec r}{r^3}  - \vec p \frac{1}{r}\right)\\
+&= i\hbar\left(\frac{\vec r \vec r}{r^3} \cdot \vec p - \frac{1}{r}\vec p\right) + 2\hbar^2 \frac{\vec r}{r^3}
+\end{align*}
+\begin{align*}
+[R,H] = \frac{1}{2\mu}[R,p^2] -\kappa [R, \frac{1}{r}] = 0
+\end{align*}
+\end{proof}
+\begin{theorem}
+$[R_i, R_j] = 0$
+\end{theorem}
+\begin{proof}
+\begin{align*}
+[R_i, R_j] &= \frac{1}{\mu^2\kappa^2}[(\vec p \times \vec L)_i,(\vec p \times \vec L)_j] \\
+&- \frac{i\hbar}{\mu^2\kappa^2} ([(\vec p \times \vec L)_i, p_j] - (i \leftrightarrow j))\\
+&+ \frac{i\hbar}{\mu\kappa} ([p_i, \frac{r_j}{r}] - (i \leftrightarrow j))\\
+&- \frac{1}{\mu\kappa} ([(\vec p \times \vec L)_i, \frac{r_j}{r}] - (i \leftrightarrow j))
+\end{align*}
+其中$(i \leftrightarrow j)$表示将$ij$指标交换，这提示对于后三项仅需考虑反对称部分.依次计算：
+\begin{align*}
+   & [(\vec p \times \vec L)_i, p_j] - (i \leftrightarrow j)\\
+&= \epsilon_{ikl} p_k [L_l, p_j] - (i \leftrightarrow j)\\
+&= i\hbar\epsilon_{ikl}\epsilon_{ljm} p_k p_m - (i \leftrightarrow j)\\
+&= i\hbar(\delta_{ij} p_k p_k - p_i p_j) - (i \leftrightarrow j)\\
+&= 0
+\end{align*}
+\begin{align*}
+    [p_i, \frac{r_j}{r}] -(i \leftrightarrow j) = i\hbar\left(\frac{r_i r_j}{r^3} - \frac{\delta_{ij}}{r}\right) -(i \leftrightarrow j) = 0
+\end{align*}
+\begin{align*}
+   & [(\vec p \times \vec L)_i, \frac{r_j}{r}] - (i \leftrightarrow j)\\
+&= \epsilon_{ikl} \left([p_k, \frac{r_j}{r}]L_l + p_k[L_l, \frac{r_j}{r}]\right) - (i \leftrightarrow j)\\
+&=\epsilon_{ikl} \left(i\hbar \left(\frac{r_j r_k}{r^3} - \frac{\delta_{jk}}{r}\right)L_l + p_k i\hbar \epsilon_{ljm}\frac{r_m}{r}\right) - (i \leftrightarrow j) \\
+&= i\hbar\left(\epsilon_{ikl}\frac{1}{r^3}r_k r_j L_l - \epsilon_{ijl}\frac{1}{r}L_l + \delta_{ij}p_k \frac{r_k}{r} - p_j \frac{r_i}{r}\right) - (i \leftrightarrow j) \\
+&= i\hbar \frac{r_j r_k}{r^3}\epsilon_{ikl}\epsilon_{mnl}r_m p_n - i\hbar p_j\frac{r_i}{r} - (i \leftrightarrow j) - 2i\hbar \epsilon_{ijl}\frac{1}{r}L_l\\
+&= \frac{i\hbar}{r^3} (r_i r_j r_k p_k - r^2 r_j p_i)- i\hbar p_j\frac{r_i}{r} - (i \leftrightarrow j) - 2i\hbar \epsilon_{ijl}\frac{1}{r}L_l\\
+&= - 2i\hbar \epsilon_{ijl}\frac{1}{r}L_l
+\end{align*}
+\begin{align*}
+    &[(\vec p \times \vec L)_i,(\vec p \times \vec L)_j] \\
+&= \epsilon_{ikl}\epsilon_{jmn}(p_k [L_l, p_m] L_n + p_m [L_l, L_n] + p_m[p_k, L_n]L_l)\\
+&= i\hbar \epsilon_{ikl}\epsilon_{jmn} (p_k \epsilon_{lms}p_s L_n + p_k p_m \epsilon_{lns} L_s - p_m \epsilon_{nks} p_s L_l)\\
+\end{align*}
+拆成三项计算：
+\begin{align*}
+&\epsilon_{ikl}\epsilon_{jmn}\epsilon_{lms}p_k p_s L_n\\
+&=\epsilon_{ikl}(\delta_{jl}\delta_{ns} - \delta_{js}\delta_{nl})p_k p_s L_n \\
+&= -\epsilon_{ikj} p_k p_n L_n - \epsilon_{ikl} p_k p_j L_l\\
+&= -\epsilon_{ikl}p_k p_j L_l
+\end{align*}
+其中利用$\vec p \cdot \vec L = 0$.
+\begin{align*}
+&\epsilon_{ikl}\epsilon_{jmn}\epsilon_{lns}p_k p_m L_s\\
+&\epsilon_{ikl}(\delta_{jl}\delta_{ms}-\delta_{js}\delta_{ml})p_k p_m L_s\\
+&= -\epsilon_{ikj} p_k p_m L_m + \epsilon_{ikl}p_k p_l L_j\\
+&= \epsilon_{ikl}p_k p_l L_j = 0
+\end{align*}
+其中利用$\epsilon_{ikl}$反对称，而$p_k p_l$对称，因此求和为$0$.
+\begin{align*}
+&\epsilon_{ikl}\epsilon_{jmn}\epsilon_{nks}p_m p_s L_l\\
+&=-\epsilon_{ikl}(\delta_{jk}\delta_{ms} - \delta_{js}\delta_{mk})p_m p_s L_l\\
+&= -\epsilon_{ijl} p_m p_m L_l + \epsilon_{ikl} p_k p_j L_l\\
+&= -\epsilon_{ijl} p^2 L_l + \epsilon_{ikl} p_k p_j L_l
+\end{align*}
+总和
+\begin{align*}
+    [(\vec p \times \vec L)_i,(\vec p \times \vec L)_j] = -i\hbar \epsilon_{ijk}p^2 L_k
+\end{align*}
+证得
+\begin{align*}
+    [R_i, R_j] = - i\hbar \left(\frac{p^2}{\mu^2\kappa^2} - 2i\hbar\frac{1}{\mu\kappa}\frac{1}{r}\right) \epsilon_{ijk}L_k = - \frac{2i\hbar}{\mu\kappa^2}H\epsilon_{ijk}L_k
+\end{align*}
+\end{proof}
+\begin{theorem}
+$R^2 = \frac{2H}{\mu\kappa^2}(L^2 + \hbar^2) + 1$
+\end{theorem}
+\begin{proof}
+\begin{align*}
+    &\epsilon_{ijk}p_j L_k \epsilon_{ilm} p_l L_m\\
+    &= (\delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl})p_j L_k p_l L_m \\
+    &= p_j L_k p_j L_k - p_j L_k p_k L_j \\
+    &= p_j (p_j L_k + i\hbar \epsilon_{kjl}p_l)L_k + 0\\
+    &= p^2 L^2 + i\hbar \epsilon_{kjl}p_j p_l L_k \\
+    &=p^2L^2
+\end{align*}
+\begin{align*}
+    &\epsilon_{ijk}p_j L_k p_i= -\epsilon_{ijk}L_j p_k p_i + 2i\hbar p_i p_i= 2i\hbar p^2
+\end{align*}
+\begin{align*}
+    p_i \epsilon_{ijk}p_jL_k = 0
+\end{align*}
+\begin{align*}
+    \epsilon_{ijk}p_j L_k r_i = (-\epsilon_{ijk} L_j p_k + 2i\hbar p_i)r_i = -L_j \epsilon_{kij} p_k r_i + 2i\hbar p_i r_i = - L^2 + 2i\hbar p_i r_i
+\end{align*}
+\begin{align*}
+    r_i\epsilon_{ijk}p_j L_k = L_k L_k
+\end{align*}
+证得
+\begin{align*}
+    R^2 &= \frac{1}{\mu^2\kappa^2} (p^2 L^2 - \hbar^2 p^2 - i\hbar 2i\hbar p^2) - \frac{1}{\mu\kappa}\left((L^2+2i\hbar p_i r_i)\frac{1}{r} - i\hbar p_i r_i \frac{1}{r} -\frac{1}{r}(L^2 - i\hbar r_i p_i)\right) +1\\
+    &= \frac{1}{\mu^2\kappa^2} (p^2 L^2 + \hbar^2 p^2) - \frac{1}{\mu\kappa} \left(\frac{2}{r}L^2 + i\hbar p_i \frac{r_i}{r} - i\hbar \frac{1}{r}r_i p_i\right) + 1\\
+    &= \frac{p^2}{\mu^2\kappa^2}(L^2 + \hbar^2) - \frac{2}{\mu\kappa}\frac{1}{r}(L^2+\hbar^2) + 1\\
+    &=\frac{2}{\mu\kappa^2}H (L^2+\hbar^2) +1
+\end{align*}
+\end{proof}
+\begin{theorem}
+    $R\cdot L = L\cdot R = 0$
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        R_i L_i = \frac{1}{\mu\kappa} (\epsilon_{ijk}p_jL_k L_i - i\hbar p_i L_i) - \frac{1}{r}r_i \epsilon_{ijk}r_j p_k = 0
+    \end{align*}
+    \begin{align*}
+        [L_i, R_i] = i\hbar \epsilon_{ijk} \delta_{ij} R_k = 0 \rightarrow R\cdot L = L\cdot R = 0
+    \end{align*}
+\end{proof}
+在束缚态能级$E$对应的子空间中，定义
+$$
+A = \sqrt{-\frac{\mu\kappa^2}{2E}}R
+$$
+有
+$$
+\begin{cases}
+[L_i, L_j] = i\hbar \epsilon_{ijk}L_k,\\
+[L_i, A_j] = i\hbar \epsilon_{ijk}A_k,\\
+[A_i, A_j] = i\hbar \epsilon_{ijk}L_k
+\end{cases}
+$$
+这构成了SO4对称性.
+
+定义
+$$
+A_{\pm} = \frac{1}{2}\left( L \pm A \right)
+$$
+有
+$$
+[A_{\pm i}, A_{\pm j}]\\ 
+= \frac{1}{4} \left([L_i, L_j] + [A_i, A_j] \pm [L_i, A_j] \pm [A_i, L_j] \right)\\
+= i\epsilon_{ijk} A_{\pm k} 
+$$
+这说明$A_{\pm}$各自构成一套SO3群.类似于角动量，$A_{\pm}^2$的本征值为$a_{\pm}(a_{\pm}+1)\hbar^2$，由于$A_{+}^2 = A_{-}^2$，$a_+ = a_- = a$,
+
+$$
+A^2 = (A_{+} - A_{-})^2 = - (A_{+} + A_{-})^2 - \hbar^2 - \frac{\mu\kappa^2}{2E}
+$$
+$$
+(4 a(a+1) + 1) \hbar^2 = -\frac{\mu\kappa^2}{2E}\rightarrow E = -\frac{\mu\kappa^2}{2(2a+1)^2}
+$$
+$n = 2a+1,\kappa = \frac{Ze^2}{4\pi\epsilon_0}$,证得
+$$
+E = - \frac{\mu Z^2 e^4}{32\pi^2\epsilon_0^2n^2}
+$$

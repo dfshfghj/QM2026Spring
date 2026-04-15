@@ -1,0 +1,329 @@
+\section{量子力学的数学理论}
+\subsection{“推导”薛定谔方程}
+在20世纪初，人们发现，微观世界与经典力学相比，有三个不同之处。第一，能量是离散的（Planck）；第二，粒子具有波的某些性质，也就是波粒二象性（德布罗意）；第三，测量是有概率的（波恩）。
+
+为了找到描述粒子运动的方程，一个自然的想法是从经典波动方程出发
+$$\frac{\partial ^2u}{\partial t^2}-\frac{1}{c^2}\nabla^2 u=0\quad u=u(x,t)$$
+这个方程有平面波解
+$$u(x,t)=\psi(x,t)=e^{i\vec{k}\cdot\vec{x}-i\omega t}\quad \omega=c|\vec{k}|$$
+这个平面波解又满足下述两个方程
+$$i\frac{\partial}{\partial t}\psi=\omega\psi\quad -i\vec{\nabla}\psi=\vec{k}\psi$$
+又根据德布罗意物质波的假定$E=\hbar\omega,\vec{p}=\hbar\vec{k}$，可以做下述的对应
+$$\vec{p}\leftrightarrow -i\hbar\vec{\nabla}\quad E\leftrightarrow i\hbar\frac{\partial}{\partial t}$$
+经典力学中的能量关系$E=\frac{p^2}{2m}+V(x)$便对应于薛定谔方程
+\begin{equation}
+    i\hbar\frac{\partial}{\partial t}\psi=-\frac{\hbar^2}{2m}\nabla^2\psi+V(x)\psi\quad\psi=\psi(x,t)
+\end{equation}
+$|\psi(x,t)|^2$表示$t$时刻，粒子出现在$x$位置的概率密度。换言之，在区域$Q\subset\mathbb{R}^3$内找到粒子的概率是
+$$P(\text{粒子在Q内})=\int_Q|\psi(x,t)|^2d^3x$$
+将薛定谔方程取复共轭后得到
+\begin{equation}
+    -i\hbar\frac{\partial}{\partial t}\psi^*=-\frac{\hbar^2}{2m}\nabla^2\psi^*+V(x)\psi^*
+\end{equation}
+将(2.1)式乘以$\psi^*$再减去(2.2)式乘以$\psi$得到
+$$i\hbar\psi^*\partial_t\psi+i\hbar\psi\partial_t\psi^*=\frac{\hbar^2}{2m}(-\psi^*\nabla^2\psi+\psi\nabla^2\psi^*)$$
+$$\frac{\partial}{\partial t}(\psi^*\psi)+\vec{\nabla}\cdot\left[\frac{i\hbar}{2m}(\psi\vec{\nabla}\psi^*-\psi^*\vec{\nabla}\psi)\right]=0$$
+这个式子具有$\partial_t\rho+\vec{\nabla}\cdot\vec{J}=0$的守恒流形式，其中$\rho=\psi^*\psi$为概率密度，$\vec{J}=\frac{i\hbar}{2m}(\psi\vec{\nabla}\psi^*-\psi^*\vec{\nabla}\psi)$为概率流密度。这个式子还告诉我们，全空间中的概率应该随时间不变，也就是说
+$$\frac{d}{dt}\int_{\mathbb{R}^3}|\psi(x,t)|^2d^3x=0$$
+只要在某个时刻确定归一化条件$\int|\psi|^2d^3x=1$，这个条件随系统演化会自动保持。
+\subsection{Hilbert空间}
+\subsubsection{基本定义}
+Hilbert空间$\mathcal{H}$是一个元素的集合，其上定义有三种运算：数乘、加法和内积。关于数乘和加法，$\mathcal{H}$构成复数域$\mathbb{C}$上的线性空间。关于内积，满足以下性质
+\\ (a)内积$(\cdot,\cdot)$是$\mathcal{H}\times\mathcal{H}\to \mathbb{C}$的一个映射，对于$\psi,\phi\in\mathcal{H}$，$(\psi,\phi)\in\mathbb{C}$
+\\ (b)反共轭性 $(\psi,\phi)=\overline{(\phi,\psi)}\quad\forall\phi,\psi\in\mathcal{H}$
+\\ (c)线性 $(\psi,\alpha\phi_1+\beta\phi_2)=\alpha(\psi,\phi_1)+\beta(\psi,\phi_2)\quad\forall\alpha,\beta\in\mathbb{C},\psi,\phi_1,\phi_2\in\mathcal{H}$
+\\ (d)正定性 $(\psi,\psi)\geq 0\quad\forall\psi\in\mathcal{H}$，且$(\psi,\psi)=0$当且仅当$\psi=0$
+\\ 类比于$\mathbb{R}^3$中向量的模长，定义$\mathcal{H}$上的范数为
+$$\|\psi\|=\sqrt{(\psi,\psi)}$$
+
+注：若追求数学的严格性，还应该添加完备性条件，$\mathcal{H}$中的任意柯西序列都收敛。
+
+\begin{example}
+    二维复线性空间$\mathbb{C}^2$，定义内积
+    $$(\psi,\phi)=\overline{\psi}_1\phi_1+\overline{\psi}_2\phi_2\quad \psi=\left[\begin{array}{c}
+        \psi_1\\
+        \psi_2
+    \end{array}\right]\quad \phi=\left[\begin{array}{c}
+        \phi_1\\
+        \phi_2
+    \end{array}\right]$$
+    则其构成一个Hilbert空间。
+\end{example}
+\begin{example}
+    $\mathbb{R}^n$上的所有平方可积复值函数构成无限维复线性空间$L^2(\mathbb{R}^n)$
+    $$L^2(\mathbb{R}^n)=\{f:\left|\int_{\mathbb{R}^n}|f(x)|^2d^nx\right|<\infty\}$$
+    在其上定义内积
+    $$(f,g)=\int_{\mathbb{R}^n}\overline{f(x)}g(x)d^nx$$
+    构成Hilbert空间。
+
+    注：这里的积分应该理解为勒贝格积分而非黎曼积分，勒贝格积分有更好的性质使得可积函数乘以可积函数依旧是可积函数。
+\end{example}
+\begin{theorem}[Cauchy-Schwarz不等式]
+    $\mathcal{H}$是Hilbert空间，则其上的内积满足
+    $$|(\phi,\psi)|^2\leq(\phi,\phi)(\psi,\psi)\quad\forall\psi,\phi\in H$$
+\end{theorem}
+\begin{proof}
+    若$\psi=0$，则上式两侧均为0，不等式成立，若$\psi\neq 0$，
+    对于$\lambda\in\mathbb{C}$
+    $$(\phi+\lambda\psi,\phi+\lambda\psi)=(\phi,\phi)+\lambda(\phi,\psi)+\overline{\lambda}(\psi,\phi)+|\lambda|^2(\psi,\psi)\geq 0$$
+    取$$\lambda=i\frac{(\psi,\phi)}{(\psi,\psi)}$$
+    则有
+    $$(\phi,\phi)-\frac{|(\phi,\psi)|^2}{(\psi,\psi)}\geq 0$$
+    证毕
+\end{proof}
+\subsubsection{泛函与算子}
+$\mathcal{H}$是Hilbert空间，$f:\mathcal{H}\to \mathbb{C}$是从$\mathcal{H}$到复数域的线性映射，即满足
+$$f(\alpha\psi+\beta\phi)=\alpha f(\psi)+\beta f(\phi)\quad\forall\alpha,\beta\in\mathbb{C},\psi,\phi\in\mathcal{H}$$
+则$f$称作$\mathcal{H}$上的线性泛函。若还存在一个实数$A\geq 0$，使得
+$$|f(\phi)|\leq A\|\phi\|\quad\forall\phi\in\mathcal{H}$$
+则$f$称作有界的。
+
+\begin{theorem}
+    $f$是Hilbert空间$\mathcal{H}$上的有界线性泛函，则存在唯一的$\psi_f\in\mathcal{H}$，使得
+    $$f(\phi)=(\psi_f,\phi)\quad\forall \phi\in\mathcal{H}$$
+\end{theorem}
+从这个定理可以看出，$\mathcal{H}$中的向量，和$\mathcal{H}$上的有界线性泛函是一一对应的。换言之，若知道了某个向量$\psi$与$\mathcal{H}$中所有向量的内积，便可以把这个向量唯一确定下来。
+
+$\mathcal{H}$到自身的线性映射称为其上的算子，即满足
+$$A(\alpha\psi+\beta\phi)=\alpha A\psi+\beta A\phi\quad \forall\psi,\phi\in \mathcal{H}$$
+对于某个算子$A$，定义其共轭算子$A^\dagger$为
+$$(A^\dagger\psi,\phi)=(\psi,A\phi)\quad \forall\psi,\phi\in\mathcal{H}$$
+这个式子为什么可以确定$A^\dagger$呢？我们看到，把$A^\dagger$作用到任意向量$\psi$上，得到一个新向量$A^\dagger\psi$。为了确定$A^\dagger\psi$，我们把它与$\mathcal{H}$中每个向量$\phi$做内积，内积的值由等式右侧确定。因此根据定理2.2，$A^\dagger\phi$就唯一确定下来了，因此$A^\dagger$也唯一确定了。
+
+若某个算子$H$满足$H^\dagger=H$，我们就称其为自伴算子（厄米算子）。
+
+注：数学上严格地说，这个方式只能定义有界算子的伴算子。对于无界算子，其伴算符还有定义域的问题，自伴和厄米也有所不同。
+\subsubsection{算子的特征方程}
+$\mathcal{H}$中的一组向量$\{e_\nu\}$，若$\mathcal{H}$中任意向量$\phi$都可写成如下形式
+$$\phi=\sum_\nu \phi_\nu e_\nu\quad \phi_\nu\in\mathbb{C}$$
+则称$\{e_\nu\}$在$\mathcal{H}$是完备的。换言之，$\mathcal{H}$中任意向量可按$\{e_\nu\}$展开。（若$\{e_\nu\}$还是线性无关的，则展开系数$\phi_\nu$唯一确定）
+
+若基$\{e_\nu\}$还满足
+$$(e_\nu,e_\mu)=\delta_{\nu\mu}=\left\{\begin{array}{ll}
+    0&,\nu\neq\mu\\
+    1&,\nu=\mu
+\end{array}\right.$$
+则$\{e_\nu\}$称作正交归一基，此时向量$\phi$的展开系数为
+$$\phi=\sum_\nu\phi_\nu e_\nu\quad \phi_\nu=(e_\nu, f)$$
+
+注：这里的$\sum_\nu$既可以理解为对可数多个基矢的求和，也可以理解为积分
+$$\phi=\int \phi(\nu)e_\nu d\nu$$
+
+对于算子$A$，方程
+$$A\psi=\lambda\psi\quad \psi\neq 0,\psi\in\mathcal{H},\lambda\in\mathbb{C}$$
+称作$A$的特征方程，$\lambda$称作特征值，$\psi$称作特征向量。
+\begin{theorem}
+    自伴算子的特征值都是实数。
+\end{theorem}
+\begin{proof}
+    假定$A$自伴，$\lambda,\psi$是其特征值与特征向量。则有
+    $$(\psi,A\psi)=\lambda(\psi,\psi)$$
+    另一方面，也有
+    $$(\psi,A\psi)=\overline{(A\psi,\psi)}=\overline{(\psi,A^*\psi)}=\overline{(\psi,A\psi)}=\overline{\lambda}(\psi,\psi)$$
+    两式联立有$\lambda=\overline{\lambda}$，证毕。
+\end{proof}
+\begin{theorem}
+    自伴算子不同特征值对应的特征向量相互正交
+\end{theorem}
+\begin{proof}
+    假定$A$自伴，$\lambda_1,\psi_1$和$\lambda_2,\psi_2$为两组特征值和特征向量，$\lambda_1\neq\lambda_2$，则有
+    $$(\psi_1,A\psi_2)=\lambda_2(\psi_1,\psi_2)$$
+    另一方面
+    $$(\psi_1,A\psi_2)=(A^*\psi_1,\psi_2)=(A\psi_1,\psi_2)=(\lambda_1\psi_1,\psi_2)=\lambda_1(\psi_1,\psi_2)$$
+    联立有
+    $$(\lambda_1-\lambda_2)(\psi_1,\psi_2)=0$$
+    因为$\lambda_1\neq\lambda_2$，所以$(\psi_1,\psi_2)=0$，两者相互正交，证毕。
+\end{proof}
+\begin{theorem}
+    自伴算子$A$的所有特征向量组成$\mathcal{H}$的正交归一基。
+\end{theorem}
+注：证明只需证特征向量组的完备性。对于有限维Hilbert空间，证明可在《线性代数》中找到（任意厄米矩阵可被对角化）。对于无限维空间，数学上严格的证明极其复杂。事实上，许多自伴算符都不具备常规意义下的特征向量，比如$L^2(\mathbb{R}^3)$中的位置算符$(\hat{X}f)(x)=xf(x)$，其特征值为$x_0$的特征向量为$g_{x_0}(x)=\delta(x-x_0)$，这甚至不是一个常规意义上的“函数”。
+\begin{theorem}
+    $A,B$是自伴算子，则$[A,B]=AB-BA=0$的充要条件是，存在一组正交归一基$\{e_\nu\}$，使得每个$e_\nu$是$A$和$B$的共同特征向量
+    $$Ae_\nu=a_{\nu}e_\nu\quad Be_\nu=b_\nu e_\nu$$
+\end{theorem}
+注：对于有限维Hilbert空间，证明可在《线性代数》中找到。对于无限维空间，数学上严格的证明极其复杂。
+\subsubsection{Dirac符号}
+对于$\psi\in\mathcal{H}$，引入左右矢记号
+$$\bra{\psi}\quad \ket{\psi}$$
+把内积关系记为
+$$(\phi,\psi)=\braket{\phi|\psi}$$
+定义算符$A$作用于右矢上
+$$A\ket{\psi}=\ket{A\psi}$$
+我们还希望把$A$作用于左矢，并且$\braket{\psi|A|\phi}$在$A$向左或向右作用时相同
+$$(\bra{\psi}A)\ket{\psi}=\bra{\psi}(A\ket{\phi})=(\psi,A\phi)$$
+因此可定义
+$$\bra{\psi}A=\bra{A^\dagger\psi}$$
+向量$\psi$按照正交归一基$\{e_\nu\}$的展开现在变成
+$$\ket{\psi}=\sum_\nu\ket{e_\nu}\braket{e_\nu|\psi}$$
+$$\bra{\psi}=\sum_\nu\braket{\psi|e_\nu}\bra{e_\nu}$$
+因此可记
+$$\sum_\nu\ket{e_\nu}\bra{e_\nu}=1$$
+或
+$$\int \ket{e_\nu}d\nu\bra{e_\nu}=1$$
+
+\subsubsection{表象与表象变换}
+
+一组正交归一基$\{\ket{\nu}\}$的好处是可以帮助简化计算。
+$$\ket{\psi}=\sum_\alpha\psi_\alpha\ket{\alpha}$$
+$$\ket{\phi}=\sum_\alpha\phi_\alpha\ket{\alpha}$$
+向量间加法数乘运算变为
+$$\ket{\lambda\psi+\phi}=\sum_\alpha(\lambda\psi_\alpha+\phi_\alpha)\ket{\alpha}$$
+$$(\lambda\psi+\phi)_\alpha=\lambda\psi_\alpha+\phi_\alpha$$
+内积运算变为
+$$\braket{\psi|\phi}=\sum_{\alpha\beta}\psi^*_\alpha\phi_\beta\braket{\alpha|\beta}=\sum_{\alpha\beta}\psi^*_\alpha\phi_\beta\delta_{\alpha\beta}=\sum_\alpha\psi^*_\alpha\phi_\alpha$$
+算符运算变为
+$$A\ket{\psi}=\sum_\alpha \psi_\alpha A\ket{\alpha}=\sum_{\alpha\beta}\braket{\beta|A|\alpha}\psi_\alpha\ket{\beta}$$
+$$(A\psi)_\alpha=\sum_\beta A_{\alpha\beta}\psi_\beta\quad A_{\alpha\beta}=\braket{\alpha|A|\beta}$$
+$$A=\sum_{\alpha\beta}\ket{\alpha}\braket{\alpha|A|\beta}\bra{\beta}=\sum_{\alpha\beta}\ket{\alpha}A_{\alpha\beta}\bra{\beta}$$
+如此便把陌生的Hilbert空间向量，转化成了我们熟悉的矩阵运算。右矢$\ket{}$由列向量$\psi_\alpha$描述，矩阵有方阵$A_{\alpha\beta}$描述。这便称作$\{\ket{\alpha}\}$表象。
+
+假设有另外一套正交归一基$\{\ket{a}\}$，在这个表象下，$\psi$和$A$表示为
+$$\psi_a=\braket{a|\psi}=\sum_\alpha\braket{a|\alpha}\braket{\alpha|\psi}=\sum_\alpha U_{a\alpha}\psi_\alpha$$
+$$A_{ab}=\braket{a|A|b}=\sum_{\alpha\beta}\braket{a|\alpha}\braket{\alpha|A|\beta}\braket{\beta|b}=\sum_{\alpha\beta}U_{a\alpha}U_{b\beta}^*A_{\alpha\beta}$$
+$U_{a\alpha}=\braket{a|\alpha}$是两个表象间的变换矩阵，其满足
+$$\sum_{\alpha}U_{a\alpha}U^\dagger_{\alpha b}=\sum_{\alpha}U_{a\alpha}U^*_{b\alpha}=\sum_{\alpha}\braket{a|\alpha}\braket{\alpha|b}=\braket{a|b}=\delta_{ab}$$
+因此$U_{a\alpha}$是幺正矩阵。
+\begin{example}
+    在$L^2(\mathbb{R}^3)$中，有坐标算符$\hat{X}$与动量算符$\hat{P}$，分别有一套本征矢$\ket{x},\ket{p}$（取$\hbar=1$）
+    $$\ket{x_0}(x)=\delta(x-x_0)\quad \ket{p}(x)=\frac{1}{(2\pi)^{3/2}}\e^{\i \vec{p}\cdot\vec{x}}$$
+    $$\braket{x_1|x_2}=\delta(x_1-x_2)\quad \braket{p_1|p_2}=\delta(p_1-p_2)$$
+    $$\braket{x|\psi}=\psi(x)\quad \braket{p|\psi}=\frac{1}{(2\pi)^{3/2}}\int \e^{\i \vec{p}\cdot\vec{x}}\psi(x)d^3x$$
+    $$\braket{x_2|\hat{X}|x_1}=x_1\braket{x_2|x_1}=x_1\delta(x_1-x_2)$$
+    $$\braket{x_2|\hat{P}|x_1}=\int\braket{x_2|p_2}\braket{p_2|\hat{P}|p_1}\braket{p_1|x_1}d^3p_1d^3p_2=\frac{1}{(2\pi)^{3}}\int \e^{\i p_1x_1-\i p_2x_2}p_1\delta(p_1-p_2)d^3p_1d^3p_2$$
+    $$=\frac{1}{(2\pi)^3}\int p\e^{\i p(x_1-x_2)}d^3p=-\i\nabla\delta(x_1-x_2)$$
+    注：这些计算在数学上是不严格的，$\ket{x}$和$\ket{p}$都不属于$L^2(\mathbb{R}^3)$，两个向量内积得出$\delta$函数也不合理。数学上严格的做法是以广义本征矢来理解这些向量。
+
+\end{example}
+
+\subsection{量子力学基本假设}
+
+\begin{postulate}[量子态假设]
+    物理系统由一个Hilbert空间$\mathcal{H}$表示。每一个时刻，系统的状态由$\mathcal{H}$中的归一化向量$\psi$描述。相差一个相因子$\e^{\i\delta}$的向量描述同一个系统状态。也就是说，系统的状态与$\mathcal{H}$中的射线一一对应。
+\end{postulate}
+\begin{postulate}[算符假设]
+    系统中每一个可观测力学量$Q$，由$\mathcal{H}$中的自伴算子$\hat{Q}$描述。力学量之间的运算关系由算符间的运算实现。
+\end{postulate}
+\begin{example}
+    一个在3维空间中运动的粒子，描述这个系统的Hilbert空间是$L^2(\mathbb{R}^3)$。粒子的位置由位置算符$\hat{X}_i$描述，动量由动量算符$\hat{P}_i$描述
+    $$(\hat{X}_if)(x)=x_if(x)\quad (\hat{P}_if)(x)=-\i\hbar\dfrac{\partial f}{\partial x_i}(x)$$
+    角动量与位置、动量的关系为
+    $$\vec{L}=\vec{x}\times \vec{p}$$
+    这个关系由算符的运算实现
+    $$\hat{L}_i=\sum_{jk}\epsilon_{ijk}\hat{X}_j\hat{P}_k$$
+    动能与动量的关系为
+    $$T=\frac{p^2}{2m}\quad \hat{T}=\sum_i\frac{\hat{P}_i^2}{2m}\quad (\hat{T}f)(x)=-\frac{\hbar^2}{2m}\nabla^2 f(x)$$
+\end{example}
+\begin{postulate}[测量假设]
+    对某个可观测力学量$Q$进行测量，测量所得结果是$\hat{Q}$的某个特征值$q$。测量过程会导致系统状态$\psi$变为$q$对应的特征向量$\psi_q$，得到$q$值的概率是
+    $$P\left[Q=q|\psi\right]=|(\psi,\psi_q)|^2$$
+\end{postulate}
+\begin{theorem}
+    在状态$\psi$下测量可观测力学量$Q$，得到结果的期望值为
+    $$\mathrm{E}_\psi[Q]=\braket{\psi|\hat{Q}|\psi}$$
+\end{theorem}
+\begin{proof}
+    $$\mathrm{E}[Q]=\sum_qP[Q=q]q=\sum_q \braket{\psi|\psi_q}q\braket{\psi_q|\psi}$$
+    $$=\sum_q\braket{\psi|A|\psi_q}\braket{\psi_q|\psi}=\braket{\psi|A|\psi}$$
+    最后一步利用了自伴算符特征向量的完备性条件
+\end{proof}
+注：这里对测量结果的期望，应该理解为制备多个系统$\psi$，对每个系统测量得到一个结果，再取平均。而非对某个系统进行连续的多次测量。
+\begin{theorem}[不确定关系]
+    两个可观测力学量$A,B$，在状态$\psi$下测量的不确定度定义为
+    $$\Delta_\psi A=\sqrt{\mathrm{E}_\psi\left[(A-\mathrm{E}_\psi[A])^2\right]}$$
+    有
+    $$\Delta_\psi A\Delta_\psi B\geq\frac{1}{2}\left|\braket{\psi|[\hat{A},\hat{B}]|\psi}\right|$$
+\end{theorem}
+\begin{proof}
+    首先证明，$\braket{\psi|[\hat{A},\hat{B}]|\psi}$是纯虚数。
+    $$\overline{(\psi,[\hat{A},\hat{B}]\psi)}=([\hat{A},\hat{B}]\psi,\psi)=(\psi,[\hat{A},\hat{B}]^\dagger\psi)=-(\psi,[\hat{A},\hat{B}]\psi)$$
+    对于任意$\xi\in\mathbb{R}$
+    $$I(\xi)=\|(\xi\hat{A}+i\hat{B})\psi\|^2=(\xi\hat{A}\psi+i\hat{B}\psi,\xi\hat{A}\psi+i\hat{B}\psi)\geq 0$$
+    换一种写法
+    $$I(\xi)=\xi^2(\hat{A}\psi,\hat{A}\psi)+(\hat{B}\psi,\hat{B}\psi)+i\xi(\hat{A}\psi,\hat{B}\psi)-i\xi(\hat{B}\psi,\hat{A}\psi)$$
+    $$=\xi^2\braket{\psi|\hat{A}^2|\psi}+\braket{\psi|\hat{B}^2|\psi}+\xi\braket{\psi|i(\hat{A}\hat{B}-\hat{B}\hat{A})|\psi}\geq 0$$
+    因此这个关于$\xi$的二次函数的判别式$\leq 0$
+    $$\braket{\psi|i[\hat{A},\hat{B}]|\psi}^2\leq 4\braket{\psi|\hat{A}^2|\psi}\braket{\psi|\hat{B}^2|\psi}$$
+    再将$\hat{A}$替换为$\hat{A}-\braket{\psi|\hat{A}|\psi}$，将$\hat{B}$替换为$\hat{B}-\braket{\psi|\hat{B}|\psi}$便证毕。
+\end{proof}
+
+在前面的部分，我们看到，相互对易的自伴算符有共同的本征态，并且这些本征态构成$\mathcal{H}$的正交归一基。这有什么用呢？注意到，对于某个可观测力学量$F_0$，其每个本征值对应的本征向量空间可能是简并的，即一个本征值对应多个线性无关本征向量。为了在简并子空间中再挑选一组向量作为正交归一基，我们可以再找一个与$F_0$对易的力学量$F_1$，找$(F_0,F_1)$的共同本征态，看是否能消除简并，如果还不可以，就再找$F_3,...,F_n,...$，一直到消除全部简并。
+\begin{postulate}[时间演化假设]
+    量子态$\psi$随时间的演化满足薛定谔方程
+    $$\i\hbar\frac{\partial\psi}{\partial t}=\hat{H}\psi$$
+    $\hat{H}$是系统哈密顿量对应的哈密顿算符。
+\end{postulate}
+\begin{postulate}[正则量子化方案]
+    系统的坐标和动量间满足正则对易关系$$[\hat{X}_i,\hat{P}_j]=\i\hbar\delta_{ij}$$
+\end{postulate}
+
+这里我们说到到“量子化”，那什么是量子化？量子化就是构造一个Hilbert空间，指定可观测力学量到算符的对应关系，使上述量子力学的假设可以在这个Hilbert空间上自洽地成立。比如说，物理系统是一个粒子在空间中运动，我们找到的Hilbert空间就是$L^2(\mathbb{R}^3)$，再指定$\hat{X}=x\quad\hat{P}=-\i\hbar\nabla$，这样正则对易关系成立，完成了量子化。
+\subsection{例：代数法解谐振子}
+
+\subsection{绘景}
+我们到现在一直认为，基本力学量$X,P$是$\mathcal{H}$中的算符，不随时间变化，而系统状态$\psi$随时间的演化
+$$\i\hbar\frac{\partial\psi}{\partial t}=\hat{H}\psi=H(\hat{X},\hat{P},t)\psi(t)$$
+我们按照下式定义一个算符$U(t,t_0)$，称为时间演化算符
+$$U(t_0,t_0)=I\quad\i\hbar\frac{\partial}{\partial t}U(t,t_0)=H(\hat{X},\hat{P},t)U(t,t_0)$$
+\begin{theorem}
+    $U$满足以下性质：\\
+    (a) $U(t,t_0)^\dagger U(t,t_0)=I$\\
+    (b) $U(t_2,t_1)U(t_1,t_0)=U(t_2,t_0)$\\
+    (c) 对于满足薛定谔方程的$\psi(t)$，$\psi(t)=U(t,t_0)\psi(t_0)$
+\end{theorem}
+\begin{proof}
+    先证(a)，将$U$满足的方程取共轭后有
+    $$\i\hbar\frac{\partial}{\partial t}U(t,t_0)^\dagger=-U(t,t_0)^\dagger\hat{H}(t)$$
+    $$\i\hbar\frac{\partial}{\partial t}\left[U(t,t_0)^\dagger U(t,t_0)\right]=U(t,t_0)^\dagger \hat{H}(t)U(t,t_0)-U(t,t_0)^\dagger \hat{H}(t)U(t,t_0)=0$$
+    $$U(t_0,t_0)^\dagger U(t_0,t_0)=I$$
+    因此$U(t,t_0)^\dagger U(t,t_0)=I$
+
+    再证(b)，记等号左侧为$L_{t_1,t_0}(t_2)$，等号右侧为$R_{t_1,t_0}(t_2)$，满足
+    $$\i\hbar\frac{\partial}{\partial t_2}L_{t_1,t_0}(t_2)=\hat{H}(t_2)L_{t_1,t_0}(t_2)$$
+    $$\i\hbar\frac{\partial}{\partial t_2}R_{t_1,t_0}(t_2)=\hat{H}(t_2)R_{t_1,t_0}(t_2)$$
+    $$ L_{t_1,t_0}(t_1)=R_{t_1,t_0}(t_1)=U(t_1,t_0)$$
+    $L$和$R$满足同一方程与初值条件，因此$L=R$。(c)显然易见。
+\end{proof}
+
+我们称这样的对系统的描述，态矢量含时算符不含时为薛定谔绘景，相应的态矢量和算符记为$\psi^S(t),A^S$。我们再定义一套新的表示法。先取定某个时刻$t_0$，用$t_0$时的态矢量代表整个演化过程。
+$$\psi^H=U(t,t_0)^\dagger \psi^S(t)=\psi^S(t_0)$$
+让算符含时演化
+$$A^H(t)=U(t,t_0)^\dagger A^S(X^S,P^S,t)U(t,t_0)$$
+
+此时有
+$$\braket{\psi^H|A^H(t)|\phi}=\braket{U(t,t_0)^\dagger\psi^S(t)|U(t,t_0)^\dagger A^S(t)U(t,t_0)U(t,t_0)^\dagger|\phi^S(t)}=\braket{\psi^S(t)|A^S(t)|\phi^S(t)}$$
+$$\i\hbar\frac{\d}{\d t}A^H(t)=-U^\dagger H^S A^SU+\i\hbar U^\dagger \frac{\partial}{\partial t}A^S(X^S,P^S,t)U+U^\dagger A^S H^SU$$
+$$=-U^\dagger H^SUU^\dagger A^SU+U^\dagger A^SUU^\dagger H^SU+U^\dagger\frac{\partial}{\partial t}A^S U$$
+$$=[A^H,H^H]+\i\hbar\left(\frac{\partial A}{\partial t}\right)^H$$
+这样的对系统的描绘称作海森堡绘景。
+
+物理量$A$的期望值不随时间变化的充要条件是
+$$\frac{\d}{\d t}A^H(t)=0$$
+若$A$仅是$X,P$的函数而不显含时间，则$A$是守恒量的充要条件是
+$$[A^S,H^S]=0$$
+
+\subsection{量子力学的路径积分形式}
+考虑一维系统，采用薛定谔表象，我们试图计算
+$$\braket{r'|U(t',t_0)|r_0}\quad t_0<t'$$
+将$[t_0,t']$均匀划做$N$份，$t_0,t_1,...,t_N=t'$，将$U(t',t_0)$拆为$N$个$U(t+\Delta t,t)$的乘积
+$$U(t',t_0)=U(t',t_{N-1})U(t_{N-1},t_{N-2}),...,U(t_1,t_0)$$
+再插入多个完备性关系$\int\ket{r}\bra{r}dr=1$
+$$\braket{r'|U(t',t_0)|r_0}=\int\braket{r'|U(t',t_{N-1})|r(t_{N-1})}\braket{r(t_N-1)|U(t_{N-1},t_{N-2})}......$$
+$$\braket{r(t_1)|U(t_1,t_0)|r_0}dr(t_{N-1})...dr(t_1)$$
+取$\Delta t\to 0$的极限，可以有
+$$U(t+\Delta,t)\approx 1-\i\hbar H(t)\Delta t$$
+$$\braket{r(t_{i+1})|U(t_{i+1},t_i)|r(t_i)}=\braket{r(t_{i+1})|1-\frac{\i}{\hbar} H(P,X,t)\Delta t|r(t_i)}$$
+假设$H$中所有的$P$都写在所有$X$左侧，再插入一个动量本征态完备条件$\int\ket{p(t_{i+1})}\bra{p(t_{i+1})}dp(t_{i+1})=1$，有
+$$=\int\braket{r(t_{i+1})|p(t_{i+1})}\braket{p(t_{i+1})|1-\frac{\i}{\hbar} H(P,X,t)\Delta t|r(t_i)}dp(t_{i+1})$$
+$$\approx \int\frac{1}{2\pi\hbar}\exp\left\{-\frac{\i}{\hbar} p(t_{i+1})\left[r(t_{i+1})-r(t_i)\right]-\frac{\i}{\hbar}H\left[p(t_{i+1}),r(t_i),t_i\right]\right\}dp(t_{i+1})$$
+因此有
+$$\braket{r'|U(t',t_0)|r_0}=\lim_{N\to\infty}\int_{r(t_0)=r_0;r(t_N)=r'}\exp\left\{-\frac{\i}{\hbar}\sum_{i=0}^{N-1}\left\{p(t_{i+1})\left[r(t_{i+1})-r(t_i)\right]+H\left[p(t_{i+1}),r(t_i),t_i\right]\Delta t\right\}\right\}$$
+$$dr(t_1)dr(t_2)...dr(t_{N-1})\frac{dp(t_1)}{2\pi\hbar}\frac{dp(t_2)}{2\pi\hbar}...\frac{dp(t_{N})}{2\pi\hbar}$$
+若$H$是动量的二次型，$H=\frac{p^2}{2m}+V(r,t)$，则可以完成对$p$的积分，利用关系
+$$\int dx \exp\left[-\i bx-\i ax^2\right]=\sqrt{\frac{\pi}{\i a}}\exp\left[\i\frac{b^2}{4a}\right]$$
+$$\int \exp\left\{-\frac{\i}{\hbar}\left\{p(t_{i+1})\left[r(t_{i+1})-r(t_i)\right]+H\left[p(t_{i+1}),r(t_i),t_i\right]\Delta t\right\}\right\}\frac{dp(t_{i+1})}{2\pi\hbar}$$
+$$=\sqrt{\frac{m}{2\pi \i\hbar\Delta t}}\exp\left\{\frac{\i}{\hbar}\left[\frac{1}{2}m\left(\frac{r(t_{i+1})-r(t_i)}{\Delta t}\right)^2-V(r(t_i),t_i)\right]\Delta t\right\}$$
+$$\braket{r'|U(t',t_0)|r_0}=\lim_{N\to\infty}\left(\frac{m}{2\pi \i\hbar\Delta t}\right)^{\frac{N}{2}}$$
+$$\int \exp\left\{\frac{\i}{\hbar}\sum_{i=0}^{N-1}\left[\frac{1}{2}m\left(\frac{r(t_{i+1})-r(t_i)}{\Delta t}\right)^2-V(r(t_i),t_i)\right]\Delta t\right\}\prod_{i=1}^{N-1}dr(t_i)$$
+可记作
+$$\braket{r'|U(t',t_0)|r_0}\propto \int_{r(t_0)=r_0;r(t')=r'}[\mathcal{D}r]\exp\left[\frac{\i}{\hbar} S[r(t)]\right]$$

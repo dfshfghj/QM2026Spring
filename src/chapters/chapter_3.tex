@@ -1,0 +1,440 @@
+\section{角动量理论}
+\subsection{SO(3)}
+三维实正交矩阵群O(3)的定义是
+$$\mathrm{O}(3)=\{A\in\mathbb{R}^{3\times 3}:A^TA=I\}$$
+由$A^TA=I$，两侧取行列式有
+$$(\det A)^2=1\quad \det A=\pm 1$$
+由此可知，O(3)群至少有两个分叉，一个分叉为$\det A=1$，另一个为$\det A=-1$，两个分叉间是不连通的。定义
+$$\mathrm{SO}(3)=\{A\in\mathrm{O}(3):\det A=1\}$$
+\begin{theorem}
+    $\mathrm{SO}(3)$中任意群元$A$都可以写成绕某个轴$k$的转动$C_k(\theta)$。即对于任意$a\in\mathbb{R}^3$，$Aa$相当于把$a$绕$k$转动$\theta$角。
+\end{theorem}
+\begin{proof}
+    先证明存在$k\neq 0$，使得$Ak=k$，即证明$\det(A-I)=0$
+    $$\det(A-I)=\det(A-I)^T=\det(A^T-I)=\det(A^{-1}-I)=\det A^{-1}\det(I-A)=-\det(A-I)$$
+    找到$k$后，再选取两个与$k$垂直的向量，使其构成右手基矢$(i,j,k)$，在该基矢下，$A$应该写为
+    $$A=\left[\begin{array}{ccc}
+        a_{11}&a_{12}&0\\
+        a_{21}&a_{22}&0\\
+        0&0&1
+    \end{array}\right]$$
+    再利用$A^TA=1$的条件，可知$A$唯一可能的形式是
+    $$A=\left[\begin{array}{ccc}
+        \cos\theta&-\sin\theta&0\\
+        \sin\theta&\cos\theta&0\\
+        0&0&1
+    \end{array}\right]$$
+    这正是绕$k$轴旋转$\theta$的矩阵。
+\end{proof}
+由于SO(3)的任意群元$A$可以写为$A=C_k(\theta)$，保持$k$不变，让$\theta$连续地变化至0，便可把$A$连续的变为$I$，因此我们还证明了
+\begin{theorem}
+    $\mathrm{SO}(3)$是连通的。
+\end{theorem}
+接下来，我们看看$C_k(\theta)$在原本的基下的矩阵是什么。经过简单的坐标变换，应当有
+$$C_k(\theta)=\left[\begin{array}{ccc}
+    i&j&k
+\end{array}\right]\left[\begin{array}{ccc}
+        \cos\theta&-\sin\theta&0\\
+        \sin\theta&\cos\theta&0\\
+        0&0&1
+    \end{array}\right]\left[\begin{array}{c}
+    i^T\\
+    j^T\\
+    k^T
+\end{array}\right]$$
+再算一个$C_k(\theta)$对$\theta$的导数
+$$\frac{\d}{\d\theta}C_k(\theta)=\left[\begin{array}{ccc}
+    i&j&k
+\end{array}\right]\left[\begin{array}{ccc}
+        0&-1&0\\
+        1&0&0\\
+        0&0&0
+    \end{array}\right]\left[\begin{array}{ccc}
+        \cos\theta&-\sin\theta&0\\
+        \sin\theta&\cos\theta&0\\
+        0&0&1
+    \end{array}\right]\left[\begin{array}{c}
+    i^T\\
+    j^T\\
+    k^T
+\end{array}\right]$$
+$$=\left[\begin{array}{ccc}
+    i&j&k
+\end{array}\right]\left[\begin{array}{ccc}
+        0&-1&0\\
+        1&0&0\\
+        0&0&0
+    \end{array}\right]\left[\begin{array}{c}
+    i^T\\
+    j^T\\
+    k^T
+\end{array}\right]C_k(\theta)=(-ij^T+ji^T)C_k(\theta)$$
+使用条件$k=i\times j$，有
+$$(-ij^T+ji^T)=\left[\begin{array}{ccc}
+    0&-i_1j_2+i_2j_1&-i_1j_3+i_3j_1\\
+    -i_2j_1+i_1j_2&0&-i_2j_3+i_3j_2\\
+    -i_3j_1+i_1j_3&-i_3j_2+i_2j_3&0
+\end{array}\right]=\left[\begin{array}{ccc}
+    0&-k_3&k_2\\
+    k_3&0&-k_1\\
+    -k_2&k_1&0
+\end{array}\right]$$
+$$\frac{\d}{\d\theta}C_k(\theta)=\i(\vec{k}\cdot\vec{J})C_k(\theta)$$
+$$J_1=\left[\begin{array}{ccc}
+    0&0&0\\
+    0&0&\i\\
+    0&-\i&0
+\end{array}\right]\quad J_2=\left[\begin{array}{ccc}
+    0&0&-\i\\
+    0&0&0\\
+    \i&0&0
+\end{array}\right]\quad J_3=\left[\begin{array}{ccc}
+    0&\i&0\\
+    -\i&0&0\\
+    0&0&0
+\end{array}\right]$$
+\begin{theorem}
+    $$C_k(\theta)=\exp\left[\i\theta(\vec{k}\cdot\vec{J})\right]$$
+\end{theorem}
+\begin{proof}
+    $C_k(\theta)$和$A(\theta)=\exp\left[\i\theta(\vec{k}\cdot\vec{J})\right]$都满足同一个微分方程与边界条件
+    $$\frac{\d}{\d\theta}A(\theta)=\i(\vec{k}\cdot\vec{J})A(\theta)\quad A(0)=I$$
+    证毕
+\end{proof}
+$\vec{J}$称作SO(3)的生成元，其满足对易关系
+$$[J_i,J_j]=\i\epsilon_{ijk}J_k\quad i,j=1,2,3$$
+\subsection{SU(2)}
+二维复正交幺模矩阵群$\mathrm{SU}(2)$的定义是
+$$\mathrm{SU}(2)=\{A\in\mathbb{C}^{2\times 2}:AA^\dagger=I,\det A=1\}$$
+\begin{theorem}\label{SU2_form}
+    $\mathrm{SU}(2)$群元的一般形式为
+    $$\left[\begin{array}{cc}
+    a&b\\
+    -b^*&a^*
+\end{array}\right]\quad |a|^2+|b|^2=1$$
+\end{theorem}
+\begin{proof}
+设
+$$A=\left[\begin{array}{cc}
+    a&b\\
+    c&d
+\end{array}\right]$$
+$$AA^\dagger=\left[\begin{array}{cc}
+    aa^*+bb^*&ac^*+bd^*\\
+    a^*c+b^*d&cc^*+dd^*
+\end{array}\right]=1\quad \det A=ad-bc=1$$
+有
+$$|a|^2+|b|^2=1\quad ac^*+bd^*=0\quad ad-bc=1$$
+若$a\neq 0$，则
+$$c^*=-\frac{bd^*}{a}\quad ad+b\frac{b^* d}{a^*}=1$$
+化简后有
+$$d=a^*\quad c=-b^*$$
+若$a=0$，则$b\neq 0$，同样有
+$$d=a^*\quad c=-b^*$$
+证毕
+\end{proof}
+\begin{theorem}
+    若$H\in\mathbb{C}^{2\times2}$是二维复零迹厄米矩阵，则$\exp(\i H)\in\mathrm{SU}(2)$。
+\end{theorem}
+\begin{proof}
+    首先有
+    $$\exp(\i H)^\dagger \exp(\i H)=\exp(-\i H)\exp(\i H)=I$$
+    其次令$A(t)=\exp(\i tH)$，$t\in\mathbb{R}$，再利用公式
+    \begin{equation}\label{ddet}
+        \frac{\d}{\d t}\det A(t)=\frac{1}{\det A}\mathrm{Tr}\left[A^{-1}\frac{\d A}{\d t}\right]
+    \end{equation}
+    $$=\frac{1}{\det A}\mathrm{Tr}\left[A(t)^{-1}A(t)\i H\right]=\i\frac{\mathrm{Tr} H}{\det A}=0$$
+    因此
+    $$\det\exp(\i H)=\det A(1)=\det A(0)=\det I=1$$
+    主体证毕。最后我们对于一般的$n$维矩阵，证明式\ref{ddet}。
+    $$\frac{\d}{\d t}\det A(t)=\frac{\d}{\d t}\sum_{i_1...i_n}\epsilon_{i_1...i_n}A_{1i_1}...A_{ni_n}=\sum_{s=1}^n\sum_{i_1...i_n}\epsilon_{i_1...i_n}A_{1i_1}...\frac{\d A_{si_s}}{\d t}...A_{ni_n}$$
+    又因为
+    $$(A^{-1})_{i_s s}=\frac{1}{\det A}\sum_{i_1...i_{s-1}i_{s+1}..i_n}\epsilon_{i_1...i_n}A_{1i_1}..A_{(s-1)i_{(s-1)}}A_{(s+1)i_{(s+1)}}...A_{ni_n}$$
+    所以
+    $$\frac{\d}{\d t}\det A(t)=\det A\sum_{ij}(A^{-1})_{ij}\frac{\d A_{ji}}{\d t}=\frac{1}{\det A}\mathrm{Tr}\left[A^{-1}\frac{\d A}{\d t}\right]$$
+    证毕。
+\end{proof}
+我们选取二维复零迹厄米矩阵的一组基底，称为Pauli矩阵。
+$$\sigma_1=\left[\begin{array}{cc}
+    0&1\\
+    1&0
+\end{array}\right]\quad \sigma_2=\left[\begin{array}{cc}
+    0&-\i\\
+    \i&0
+\end{array}\right]\quad \sigma_3=\left[\begin{array}{cc}
+    1&0\\
+    0&-1
+\end{array}\right]$$
+由前面的定理知，任意$\alpha\in\mathbb{R}^3$，$\exp(\i\vec{\alpha}\cdot\vec{\sigma})\in\mathrm{SU}(2)$，下面我们来显式计算它。
+$$\exp(\i\vec{\alpha}\cdot\vec{\sigma})=\exp\left(\i\left[\begin{array}{cc}
+    \alpha_3&\alpha_1-\i\alpha_2\\
+    \alpha+\i\alpha_2&-\alpha_3
+\end{array}\right]\right)$$
+做对角化处理
+$$\left[\begin{array}{cc}
+    \alpha_3&\alpha_1-\i\alpha_2\\
+    \alpha_1+\i\alpha_2&-\alpha_3
+\end{array}\right]=U\left[\begin{array}{cc}
+    \alpha&0\\
+    0&-\alpha
+\end{array}\right]U^\dagger$$
+$$U=\left[\begin{array}{cc}
+    \dfrac{-\alpha_1+\i\alpha_2}{\sqrt{2\alpha^2-2\alpha\alpha_3}}&\dfrac{-\alpha_1+\i\alpha_2}{\sqrt{2\alpha^2+2\alpha\alpha_3}}\\
+    \dfrac{\alpha-\alpha_3}{\sqrt{2\alpha^2-2\alpha\alpha_3}}&\dfrac{-\alpha-\alpha_3}{\sqrt{2\alpha^2+2\alpha\alpha_3}}
+\end{array}\right]$$
+$$\exp(\i\vec{\alpha}\cdot\vec{\sigma})=\left[\begin{array}{cc}
+    \cos\alpha+\i\dfrac{\alpha_3}{\alpha}\sin\alpha&\dfrac{\alpha_1-\i\alpha_2}{\alpha}\i\sin\alpha\\
+    \dfrac{\alpha_1+\i\alpha_2}{\alpha}\i\sin\alpha&\cos\alpha-\i\dfrac{\alpha_3}{\alpha}\sin\alpha
+\end{array}\right]\quad\alpha=\sqrt{\alpha_1^2+\alpha_2^2+\alpha_3^2}$$
+
+由定理\ref{SU2_form}知，$\exp(\i\vec{\alpha}\cdot\vec{\sigma})$包含了所有SU(2)的元素。$\vec{\sigma}$称作SU(2)的生成元。
+\subsection{角动量耦合}
+CG系数
+\begin{align}\label{CG-defination}
+  |jm\rangle = \sum_{m_1,m_2}C_{j_1 j_2}(jm;m_1m_2)|j_1 m_1;j_2 m_2\rangle  
+\end{align}
+
+\begin{theorem}[正交关系]
+\begin{align*}
+    \sum_{m_1,m_2} C^*_{j_1 j_2}(j'm';m_1m_2)C_{j_1 j_2}(jm;m_1m_2)= \delta_{j'j}\delta_{m'm}
+\end{align*}
+\begin{align*}
+    \sum_{j,m}C^*_{j_1,j_2}(jm;m_1'm_2')C_{j_1,j_2}(jm;m_1m_2)= \delta_{m_1'm_1}\delta_{m_2'm_2}
+\end{align*}
+\end{theorem}
+\begin{proof}
+    利用两套基矢的正交归一性，按CG系数定义\ref{CG-defination}，
+    \begin{align*}
+        &\langle j'm'| jm\rangle \\
+        &= \sum_{\substack{m_1,m_2\\m_1',m_2'}} C^*_{j_1 j_2}(j'm';m_1'm_2')C_{j_1 j_2}(jm;m_1m_2)\langle j_1 m_1';j_2 m_2'|j_1 m_1;j_2 m_2\rangle\\
+&= \sum_{\substack{m_1,m_2\\m_1',m_2'}} C^*_{j_1 j_2}(j'm';m_1'm_2')C_{j_1 j_2}(jm;m_1m_2)\delta_{m_1' m_1}\delta_{m_2' m_2}\\
+&= \sum_{m_1,m_2} C^*_{j_1 j_2}(j'm';m_1m_2)C_{j_1 j_2}(jm;m_1m_2)\\
+&= \delta_{j'j}\delta_{m'm}
+    \end{align*}
+    反过来展开：
+    \begin{align*}
+        |j_1 m_1;j_2 m_2\rangle = \sum_{j,m}\langle jm|j_1 m_1;j_2 m_2 \rangle|jm\rangle= \sum_{j,m}C^*_{j_1,j_2}(jm;m_1m_2)|jm\rangle
+    \end{align*}
+    同样操作
+    \begin{align*}
+        &\langle j_1 m_1';j_2 m_2'|j_1 m_1;j_2 m_2\rangle\\
+        &= \sum_{\substack{j,m\\j',m'}}C^*_{j_1,j_2}(jm;m_1m_2)C_{j_1,j_2}(j'm';m_1'm_2')\langle j'm'|jm\rangle\\
+&= \sum_{\substack{j,m\\j',m'}}C^*_{j_1,j_2}(jm;m_1m_2)C_{j_1,j_2}(j'm';m_1'm_2')\delta_{j'j}\delta_{m'm}\\
+&= \sum_{j,m}C^*_{j_1,j_2}(jm;m_1m_2)C_{j_1,j_2}(jm;m_1'm_2')\\
+&= \delta_{m_1'm_1}\delta_{m_2'm_2}
+    \end{align*}
+\end{proof}
+\begin{theorem}
+Racah表示式
+\begin{align*}
+    &C_{j_1j_2}(j m;m_1 m_2) \\
+    &= \delta_{m1+m2,m}\sqrt{(2j+1)\frac{(j_1+j_2-j)!(j_2+j-j_1)!(j+j_1-j_2)!}{(j_1+j_2+j+1)!}}\\
+    &\times\sqrt{(j_1+m_1)!(j_1-m_1)!(j_2+m_2)!(j_2-m_2)!(j+m)!(j-m)!}\\
+    &\times\sum_{k}\frac{(-1)^{k}}{k!(j_1+j_2-j-k)!(j_1-m_1-k)!(j_2+m_2-k)!(j-j_1-m_2+k)!(j-j_2+m_1+k)!}
+\end{align*}
+\end{theorem}
+\begin{proof}
+用升降算符作用：
+\begin{align*}
+    L_{\pm}|jm\rangle  = \sqrt{(j\mp m)(j\pm m +1)}\hbar|j,m\pm1\rangle
+\end{align*}
+\begin{align*}
+    &\sum C_{j_1j_2}(j m;m_1 m_2)(L_{1\pm} + L_{2\pm})|j_1 m_1;j_2 m_2\rangle\\
+    &=\sum C_{j_1j_2}(j m;m_1 m_2)\left(\begin{matrix}\sqrt{(j_1\mp m_1)(j_1\pm m_1 +1)}\hbar|j_1, m_1\pm1;j_2 m_2\rangle\\
+    +\sqrt{(j_2\mp m_2)(j_2\pm m_2 +1)}\hbar|j_1 m_1;j_2,m_2\pm1\rangle\end{matrix}\right)
+\end{align*}
+比较系数
+\begin{align*}
+    &\sqrt{(j\mp m)(j\pm m +1)}C_{j_1j_2}(j, m\pm1;m_1 m_2)\\
+    &= \sqrt{(j_1\pm m_1)(j_1\mp m_1 +1)}C_{j_1j_2}(jm;m_1\mp1, m_2)\\ 
+    &+ \sqrt{(j_2\pm m_2)(j_2\mp m_2 +1)}C_{j_1j_2}(j m;m_1, m_2\mp1)
+\end{align*}
+先看最高的$m$使得$L_{+}|jm\rangle = 0$，即$m=j$：
+\begin{align*}
+    &\sum_{m_1 m_2}C_{j_1j_2}(j j;m_1 m_2) \left(\begin{matrix}
+    \sqrt{(j_1-m_1)(j_1+m_1+1)}\hbar|j_1, m_1+1;j_2 m_2\rangle\\
+    + \sqrt{(j_2-m_2)(j_2+m_2+1)}|j_1 m_1;j_2,m_2+1\rangle\end{matrix}\right) = 0
+\end{align*}
+\begin{align*}
+    &C_{j_1j_2}(j j;m_1-1,j-m_1)\sqrt{(j_1+m_1)(j_1-m_1+1)} \\
+    &+C_{j_1j_2}(j j;m_1,j-m_1-1)\sqrt{(j_2+m_2)(j_2-m_2+1)} = 0
+\end{align*}
+设$m_2 = j_2 - k, m_1 = j - j_2 + k,C_k = C_{j_1j_2}(jj;j-j_2+k,j_2-k)$，
+\begin{align*}
+    \frac{C_k}{C_{k-1}} = -\sqrt{\frac{(j_1+m_1)(j_1-m_1+1)}{(j_2-m_2)(j_2+m_2+1)}}=-\sqrt{\frac{(j_1+j - j_2 + k)(j_1-j + j_2 - k+1)}{k(2j_2-k+1)}}
+\end{align*}
+\begin{align*}
+    C_k = C_0 (-1)^k \sqrt{\frac{(2j_2-k)!(j_1+j-j_2+k)!(j_1-j+j_2)!}{k!(2j_2)!(j_1-j+j_2-k)!}}
+\end{align*}
+对$|jj\rangle$归一化，
+\begin{align*}
+    &|C_0|^2\sum_{k=0}^{j_1+j_2-j}\frac{(2j_2-k)!(j_1-j_2+j+k)!}{k!(j_1+j_2-j-k)!} \\
+&= (j_2-j_1+j)!(j_1-j_2 + j)!\sum_{k=0}^{j_1+j_2-j}\left(\begin{matrix}2j_2-k\\j_2-j_1+j\end{matrix}\right)\left(\begin{matrix}j_1-j_2+j+k\\j_1-j_2+j\end{matrix}\right)\\
+&=1
+\end{align*}
+使用母函数计算求和：
+\begin{align*}
+    F(x) = \sum_{k}\left(\begin{matrix}j_1-j_2+j+k\\j_1-j_2+j\end{matrix}\right) x^k = \frac{1}{(1-x)^{j_1-j_2+j+1}}
+\end{align*}
+\begin{align*}
+    G(x) = \sum_{k}\left(\begin{matrix}j_2+j-j_1+k\\j_2-j_1+j\end{matrix}\right)x^k =\frac{1}{(1-x)^{j_2-j_1+j+1}}
+\end{align*}
+待求和项恰好为两者卷积：
+\begin{align*}
+    &\sum_{k=0}^{j_1+j_2-j}\left(\begin{matrix}2j_2-k\\j_2-j_1+j\end{matrix}\right)\left(\begin{matrix}j_1-j_2+j+k\\j_1-j_2+j\end{matrix}\right) = \sum_{k=0}^{j_1+j_2-j} f_k g_{j_1+j_2-j-k}\\
+    &= [x^{j_1+j_2-j}]F(x)G(x) = \left(\begin{matrix}j+j_1+j_2+1\\j_1+j_2-j\end{matrix}\right)
+\end{align*}
+其中$[x^k]f(x)$记号表示$f(x)$中$x^k$项的系数.\\
+ Condon–Shortley 约定要求
+ $$
+ C_{j_1j_2}(jj;j_1,j-j_1) > 0
+ $$
+ 即在$C_k$前加$(-1)^{j-j_1-j_2}$.
+ 于是
+\begin{align*}
+    &C_{j_1j_2}(j j;m_1,m_2) \\
+    &= \delta_{m_1+m_2,j}(-1)^{j-j_1-m_2}\sqrt{\frac{(j_1+j_2-j)!(2j+1)!}{(j_2-j_1+j)!(j_1-j_2 + j)!(j+j_1+j_2+1)!}}\sqrt{\frac{(j_1+m_1)!(j_2+m_2)!}{(j_1-m_1)!(j_2-m_2)!}}
+\end{align*}
+
+接下来从$|jj\rangle$下降到一般的$|jm\rangle$态，将$L_{-}$重复作用：
+\begin{align*}
+    &|jm\rangle = \sqrt{\frac{(j+m)!}{(2j)!(j-m)!}}J_{-}^{j-m}|jj\rangle\\
+&= \sqrt{\frac{(j+m)!}{(2j)!(j-m)!}}\sum\left(\begin{matrix}j-m\\ s\end{matrix}\right)J_{1-}^{s} J_{2-}^{j-m-s}|jj\rangle\\
+&= \sqrt{\frac{(j+m)!}{(2j)!(j-m)!}}\sum_s\left(\begin{matrix}j-m\\ s\end{matrix}\right)J_{1-}^{s} J_{2-}^{j-m-s}\sum_{m_1,m_2} C_{j_1j_2}(j j;m_1',m_2') |j_1,m_1';j_2,m_2'\rangle\\
+&= \sqrt{\frac{(j+m)!}{(2j)!(j-m)!}}\sum_s\left(\begin{matrix}j-m\\ s\end{matrix}\right)\sqrt{\frac{(j_1 + m_1')!(j_1 -m_1' +s)!}{(j_1 - m_1')!(j_1 +m_1'-s)!}\frac{(j_2 + m_2')!(j_2+j-m_2'-m-s)!}{(j_2-m_2')!(j_2 - j +m_2'+m+s)!}} \\
+&\times\sum_{m_1',m_2'} C_{j_1j_2}(j j;m_1',m_2')|j_1,m_1'-s;j_2,m_2'-j+m+s\rangle
+\end{align*}
+针对希望计算的$m_1 m_2$，有
+\begin{align*}
+    m_1' = m_1+s, m_2' = m_2+j-m-s
+\end{align*}
+\begin{align*}
+    &C_{j_1 j_2}(jm;m_1m_2)\\
+    &= \delta_{m_1+m_2,m}\sum_{s} \sqrt{\frac{(j+m)!}{(2j)!(j-m)!}}\frac{(j-m)!}{s!(j - m - s)!}\\
+    &\times \sqrt{\frac{(j_1 + m_1 + s)!(j_1 -m_1)!}{(j_1 - m_1-s)!(j_1 +m_1)!}\frac{(j_2 + m_2+j-m-s)!(j_2-m_2)!}{(j_2-m_2-j+m+s)!(j_2+m_2)!}}\\
+    &\times (-1)^{j_1 - m_2+m+s}\sqrt{\frac{(j_1+j_2-j)!(2j+1)!}{(j_2-j_1+j)!(j_1-j_2 + j)!(j+j_1+j_2+1)!}}\sqrt{\frac{(j_1+m_1+s)!(j_2+m_2+j-m-s)!}{(j_1-m_1-s)!(j_2-m_2-j+m+s)!}}\\
+    &= \delta_{m_1+m_2,m} \sqrt{(2j+1)}\sqrt{(j+m)!(j-m)!(j_1+m_1)!(j_1-m_1)!(j_2+m_2)!(j_2-m_2)!}\\
+    &\times \sqrt{\frac{(j_1+j_2-j)!}{(j_2-j_1+j)!(j_1-j_2 + j)!(j+j_1+j_2+1)!}}\\
+    &\times \sum_{s} \frac{(-1)^{-j_1 - m_2+m+s} (j_1 + m_1 + s)!(j_2+j-m_1-s)!}{s!(j - m - s)!(j_1 - m_1-s)!(j_2-j+m_1+s)!(j_1 + m_1)!(j_2 + m_2)!}
+\end{align*}
+这被称为Edmonds形式，可惜此结果不对称，Racah在他的论文中将其变换为了熟知的结果%\footcite{PhysRev.62.438}
+.也可参见喀兴林《高等量子力学》5.23.我们接下来按照喀兴林中习题的引导证明.
+\end{proof}
+\begin{lemma}
+证明
+\begin{align}\label{lemma1}
+    \sum_{r} \binom{n}{r}\binom{m}{t-r}=\binom{n+m}{t}
+\end{align}
+对任意整数 (n,m) 都成立.求和要求所有阶乘非负，下同.
+\end{lemma}
+\begin{proof}
+    我们已在前使用母函数证明了这一点.
+\end{proof}
+\begin{lemma}
+证明
+    \begin{align}\label{lemma2_1}
+        \frac{a!}{b!c!}=\sum_{r=0}^\infty\frac{(a-b)!(a-c)!}{(a-b-r)!(a-c-r)!(b+c-a+r)!r!}
+    \end{align}
+以及
+\begin{align}\label{lemma2_2}
+   \frac{(n+m)!}{n!m!s!(n+m-s)!}=\sum_{r=0}^\infty\frac{1}{(n-r)!(s-r)!(m-s+r)!r!}
+\end{align}
+\end{lemma}
+\begin{proof}
+在\ref{lemma1}中代入$n+m=a,m=b,n+m-t=c$:
+\begin{align*}
+    \sum_{r=0}^\infty \binom{a-b}{r}\binom{b}{a-c-r}=\binom{a}{a-c}
+\end{align*}
+二项系数写为阶乘：
+\begin{align*}
+    \sum_{r=0}^\infty \frac{(a-b)!}{r!(a-b-r)!} \frac{b!}{(a-c-r)!(b+c-a+r)!}=\frac{a!}{(a-c)!c!}
+\end{align*}
+两边同乘 $\dfrac{(a-c)!}{b!}$，证得
+\begin{align*}
+     \frac{a!}{b!c!}=\sum_{r=0}^\infty\frac{(a-b)!(a-c)!}{(a-b-r)!(a-c-r)!(b+c-a+r)!r!}
+\end{align*}
+再证第二式，令$a = n + m, b=m,a-c=s$，代入：
+\begin{align*}
+    \frac{(n+m)!}{m!(n+m-s)!}=\sum_{r=0}^\infty
+\frac{n!s!}{(n-r)!(s-r)!(m-s+r)!r!}
+\end{align*}
+两边同除$n!m!s!$，证得
+\begin{align*}
+    \frac{(n+m)!}{n!m!s!(n+m-s)!}=\sum_{r=0}^\infty\frac{1}{(n-r)!(s-r)!(m-s+r)!r!}
+\end{align*}
+\end{proof}
+\begin{lemma}
+    \begin{align}\label{lemma3_1}
+        \frac{(s-n)!(s-t)!}{n!t!(s-n-t)!}=\sum_{r=0}^\infty(-1)^r\frac{(s-r)!}{r!(n-r)!(t-r)!}
+    \end{align}
+    以及
+    \begin{align}\label{lemma3_2}
+        \frac{(a+b+1)!(a-c)!(b-d)!}{(c+d)!(a+b-c-d+1)!}=\sum_{s=0}^\infty\frac{(a+s)!(b-s)!}{(c+s)!(d-s)!}
+    \end{align}
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \sum_{r=0}^\infty \binom{n}{r}\binom{-(s-t+1)}{t-r}=\binom{n-(s-t+1)}{t}
+    \end{align*}
+    \begin{align*}
+        \binom{-(s-t+1)}{t-r}=(-1)^{t-r}\frac{(s-r)!}{(t-r)!(s-t)!}
+    \end{align*}
+    因此左边为
+\[
+\sum_{r=0}^\infty\frac{n!}{r!(n-r)!}(-1)^{t-r}\frac{(s-r)!}{(t-r)!(s-t)!}
+\]
+在右边再用一次负上指标公式：
+
+\[\binom{-(s-n-t+1)}{t}=(-1)^t\frac{(s-n)!}{t!(s-n-t)!}.
+\]
+\[ \frac{(-1)^t n!}{(s-t)!} \sum_{r=0}^\infty (-1)^r \frac{(s-r)!}{r!(n-r)!(t-r)!}=(-1)^t\frac{(s-n)!}{t!(s-n-t)!}
+\]
+移项即得
+\[
+\frac{(s-n)!(s-t)!}{n!t!(s-n-t)!}=\sum_{r=0}^\infty(-1)^r\frac{(s-r)!}{r!(n-r)!(t-r)!}
+\]
+接下来证明第二式，
+\begin{align*}
+    &\frac{(a+s)!(b-s)!}{(c+s)!(d-s)!}\\
+    &=(a-c)!(b-d)!\binom{a+s}{c+s}\binom{b-s}{d-s}\\
+    &=(a-c)!(b-d)!(-1)^{c+d}\binom{c-a-1}{c+s}\binom{d-b-1}{d-s}
+\end{align*}
+使用\ref{lemma1}，
+\begin{align*}
+    \sum\binom{c-a-1}{c+s}\binom{d-b-1}{d-s} = \binom{c+d-a-b-2}{c+d} = (-1)^{c+d}\binom{a+b+1}{c+d}
+\end{align*}
+于是
+\begin{align*}
+    &\sum\frac{(a+s)!(b-s)!}{(c+s)!(d-s)!} \\
+    &= (a-c)!(b-d)!\binom{a+b+1}{c+d}\\
+    &= \frac{(a+b+1)!(a-c)!(b-d)!}{(c+d)!(a+b-c-d+1)!}
+\end{align*}
+\end{proof}
+\begin{theorem}
+    Edmonds形式与Racah形式等价.
+\end{theorem}
+\begin{proof}
+在\ref{lemma2_2}中代入$(n,m,s)=(j-j_1+j_2,j_1-m_1-s,j_2+m_2)$得到：
+\begin{align*}
+    &\frac{(j+j_2-m_1-s)!} {(j_1-m_1-s)!(j-m-s)!(j-j_1+j_2)!(j_2+m-m_1)!}\\
+    &=\sum_u\frac{1}{u!(j_1-j_2-m-s+u)!(j-j_1+j_2-u)!(j_2+m_2-u)!}
+\end{align*}
+在\ref{lemma3_1}中代入$(n,t,s,r)=(j_1-j_2-m+u,j_1-j-m_2+u,2j_1-j_2-m_2-u,j_1-j_2-m-u-s)$得到：
+\begin{align*}
+    &\sum_s (-1)^s \frac{(j_1+m_1+s)!} {s!(j_2-j+m_1+s)!(j_1-j_2-m+u-s)!}\\
+&=(-1)^{j_1-j_2-m+u}\frac{(j_1+m_1)!(j+j_1-j_2)!}{(j_1-j_2-m+u)!(j_1-j-m_2+u)!(j+m-u)!}
+\end{align*}
+\begin{align*}
+    &\sum_{s} \frac{(-1)^{-j_1 - m_2+m+s} (j_1 + m_1 + s)!(j_2+j-m_1-s)!}{s!(j - m - s)!(j_1 - m_1-s)!(j_2-j+m_1+s)!(j_2-j_1+j)!(j_1-j_2 + j)!(j_1 + m_1)!(j_2 + m_2)!}\\
+    &=\sum_{s}\frac{(j_2+j-m_1-s)!}{(j - m - s)!(j_1 - m_1-s)!(j_2-j_1+j)!(j_2 + m_2)!}\\
+    &\times(-1)^{s}\frac{(j_1 + m_1 + s)!}{s!(j_2-j+m_1+s)!}\cdot \frac{1}{(j_1-j_2 + j)!(j_1 + m_1)!}\\
+    &=\sum_{s}\sum_{u} \frac{1}{u!(j-j_1+j_2-u)!(j_2+m_2-u)!}\cdot \frac{1}{(j_1-j_2 + j)!(j_1 + m_1)!}\\
+    &\times(-1)^{s}\frac{(j_1 + m_1 + s)!}{s!(j_2-j+m_1+s)!(j_1-j_2-m-s+u)!}\\
+    &=\sum_{u}(-1)^{-j_1+m_1}\frac{(-1)^{j_1-j_2-m+u}}{u!(j-j_1+j_2-u)!(j_2+m_2-u)!(j_1-j_2-m+u)!(j_1-j-m_2+u)!(j+m-u)!}
+\end{align*}
+做换元$k=j_1-j-m_2+u$：
+\begin{align*}
+    =\sum_{k}\frac{(-1)^{k}}{k!(j_1+j_2-j-k)!(j_1-m_1-k)!(j_2+m_2-k)!(j-j_2+m_1+k)!(j-j_1-m_2+k)!}
+\end{align*}
+\end{proof}
+好消息是实践中$j_1,j_2$总是取较小的几个值，我们不需要计算这个复杂的式子，不过计算步骤和上面完全相同：先计算最高的$m=j$，然后用降算符得到一般的$|lm\rangle$.

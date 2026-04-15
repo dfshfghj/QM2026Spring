@@ -1,0 +1,111 @@
+\section{对称性与守恒量}
+\subsection{一般性论述}
+\subsubsection{保持跃迁概率的变换}
+对称性在物理学中有极其重要的地位。若系统在某个变换下性质保持不变，我们称系统具有对于这个变换的对称性。所以我们先来研究变换。
+
+长久以来，对于变换有两种理解方式。一种是主动的观点，认为变换是系统自己在变动；另一种是被动的观点，认为系统自己没有发生变化，变动的是描述系统的方式。以平移变换为例，主动变换的观点是整个系统（粒子、场）向前平移了一段距离$a$，被动变换的观点是系统仍在原地不变，只是观测系统的方式（实验室、仪器、科研人员）整体向后平移了$a$。两种观点在数学上的描述是等同的，我们采用主动的观点。
+
+回到量子力学，在这里系统的状态由希尔伯特空间中的单位向量$\psi$描述，物理量由算符描述。考虑某个变换$\alpha$，按照主动变换的观点，它应该把系统状态从$\psi$变为$\psi_\alpha$，但不改变描述系统的方式，即不改变物理量的算符。
+
+变换有了，对称性又是什么呢？应该是系统的“性质”在变换下不变。所以我们来考察量子力学中系统的哪些性质应当不变。
+
+最简单最一般的性质，应该是系统状态之间的跃迁概率$P_{\psi\to\phi}|(\psi,\phi)|^2$，它在变换$\alpha$下不变的数学描述是
+$$|(\psi_\alpha,\phi_\alpha)|^2=|(\psi,\phi)|^2\quad\forall\psi,\phi$$
+Wigner定理告诉我们，保持跃迁概率不变的$\alpha$，可以用幺正算子或反幺正算子表示。
+\begin{theorem}[Wigner]
+    $\mathcal{H}$是一个Hilbert空间，$\mathcal{P}$是其上所有射线组成的集合，$\alpha:\psi\to\psi_\alpha$是$\mathcal{P}$到自身的一一对应的映射（$\psi$和$\psi_\alpha$是用来代表它们所在射线的向量）。若$\alpha$满足
+    $$|(\psi_\alpha,\phi_\alpha)|^2=|(\psi,\phi)|^2\quad \forall\psi,\phi$$
+    则$\mathcal{H}$上存在一个幺正算子（或反幺正算子）$U_\alpha$，使得
+    $$\psi_\alpha=U_\alpha\psi$$
+    （上式的确切意义是，$U_\alpha\psi$在$\psi_\alpha$代表的射线上）
+\end{theorem}
+\subsubsection{变换群}
+对称性更美好的地方，在于对称性变换可以构成群。定义两个变换$\alpha,\beta$的乘积$(\alpha\beta)$为先执行$\beta$，再执行$\alpha$
+$$\psi_{(\alpha\beta)}=\left(\psi_{\beta}\right)_{\alpha}$$
+若$\alpha,\beta$都保持跃迁概率不变，则$(\alpha\beta)$也保持跃迁概率不变，由Wigner定理，它们都可以用（反）幺正算符刻画
+$$\psi_{(\alpha\beta)}=U_{(\alpha\beta)}\psi\quad \psi_\alpha=U_\alpha\psi\quad \psi_\beta=U_\beta\psi$$
+再代入乘积$(\alpha\beta)$的定义有
+$$U_{(\alpha\beta)}\psi=\psi_{(\alpha\beta)}=(\psi_\beta)_\alpha=U_\alpha\psi_\beta=U_\alpha U_\beta\psi$$
+从上式貌似可以直接推出
+$$U_{(\alpha\beta)}=U_\alpha U_\beta$$
+但实际要困难许多，因为这些“相等”都是射线的相等，可以随时随地差一个相因子
+$$U_{(\alpha\beta)}\psi=e^{i\delta(\alpha,\beta,\psi)}U_\alpha U_\beta\psi$$
+幸运的是，对于量子力学中绝大多数情况，都可以通过重定义$U$，消去这些相因子，使得
+$$U_{(\alpha\beta)}=U_\alpha U_\beta\quad\forall\alpha,\beta\in g$$
+这样，我们得到了变换群$g$在Hilbert空间上的幺正表示$U$。（由于反幺正算子的乘积是幺正算子，因此反幺正算子不能构成群）
+
+可以更进一步，得到量子力学版本的Noether定理
+\begin{theorem}\label{Noether}
+    设$U(\lambda)$是Hilbert空间$\mathcal{H}$上的幺正算子群，$\lambda\in\mathbb{R}$是群参数，且群乘法为
+    $$U(\lambda)U(\kappa)=U(\lambda+\kappa)\quad \lambda,\kappa\in\mathbb{R}$$
+    则$\mathcal{H}$上存在唯一的自伴算子$A$，使得
+    $$A=i\left.\frac{\d}{\d\lambda}U(\lambda)\right|_{\lambda=0}\quad U(\lambda)=\exp(-i\lambda A)\quad\forall\lambda\in\mathbb{R}$$
+    $A$称为生成元。
+\end{theorem}
+\begin{proof}
+    这个定理有一个不严格的证明。首先因为$U(0)U(0)=U(0)$，所以
+    $$U(0)=I$$
+    令
+    $$A=i\left.\frac{\d}{\d\lambda}U(\lambda)\right|_{\lambda=0}\quad V(\lambda)=\exp(-i\lambda A)$$
+    对$\lambda$求导有
+    $$\frac{\d}{\d\lambda}V(\lambda)=-iA\exp(-i\lambda A)=-iAV(\lambda)$$
+    另一方面
+    $$\frac{\d}{\d\lambda}U(\lambda)=\lim_{\delta\to 0}\frac{U(\lambda+\delta)-U(\lambda)}{\delta}=\lim_{\delta\to 0}\frac{U(\delta)-U(0)}{\delta}U(\lambda)=-iAU(\lambda)$$
+    $U(\lambda)$与$V(\lambda)$满足相同的边界条件和微分方程，因此$U\equiv V$。
+\end{proof}
+只是这个定理还不能直接地看出其反映对称性与守恒量间的关系，我们再接着分析。假设现在有一个对称变换群$g$，其有一个单参数幺正算子表示
+$$U(\lambda)=e^{-i\lambda A}$$
+再假设系统演化方程——薛定谔方程在这个变换群下不变，换言之，$\psi(t)$和$U(\lambda)\psi(t)$均满足薛定谔方程
+$$i\frac{\partial}{\partial t}\psi(t)=H(t)\psi(t)\quad i\frac{\partial}{\partial t}U(\lambda)\psi(t)=H(t)U(\lambda)\psi(t)$$
+很清楚地看到，上式对于任意$\psi(t)$均成立的条件是
+$$H(t)U(\lambda)=U(\lambda)H(t)\quad [U(\lambda),H(t)]\quad \forall t,\lambda$$
+又因为$A=i\frac{\d}{\d\lambda}U(\lambda)$，有
+$$[A,H(t)]=i\frac{\d}{\d \lambda}[U(\lambda),H(t)]=0$$
+对于哈密顿量不含时的情况，$A$便是一个守恒量。也就是说，一个保持系统演化方程不变的对称性，对应一个守恒量。
+
+再来看看物理量在对称性变换$\alpha$下如何变动。考虑物理量$F$，对称性变换$\alpha$和其对应的幺正算子$U_{\alpha}$。则$F$在变换后的期望值是
+$$(\psi_\alpha,F\psi_\alpha)=(U_\alpha\psi,FU_\alpha\psi)=\braket{\psi|U^{-1}_\alpha FU_\alpha|\psi}$$
+若物理量$F$有关于这个变换的对称性，在变换下不变，它的期望值应当不变，换言之
+$$U^{-1}_\alpha FU_\alpha=F\quad [U_\alpha,F]=0$$
+若$U_\alpha$是按单参数群的方式呈现，$U(\alpha)=e^{i\alpha A}$，则上述关系还可以写为
+$$[A,F]=0$$
+\subsection{空间平移}
+若空间平移是某个系统的对称性，可以保持其跃迁概率不变，则在Hilbert空间中存在空间平移变换群的幺正表示$U(\vec{a})$，$\vec{a}\in\mathbb{R}^3$，其有群乘法
+$$U(\vec{a})U(\vec{b})=U(\vec{a}+\vec{b})$$
+可以把每个平移拆成三个方向平移之和
+$$U(\vec{a})=U(a_1\hat{e}_1+a_2\hat{e}_2+a_3\hat{e}_3)=U(a_1\hat{e}_1)U(a_2\hat{e}_2)U(a_3\hat{e}_3)$$
+每个单独方向的$U(a_i\hat{e}_i)$都满足定理\ref{Noether}，因此可有一系列自伴算子$P_i$，使得
+$$U(a_i\hat{e}_i)=e^{-\i P_ia_i}\quad i=1,2,3$$
+因为不同的$U(\vec{a})$之间是对易的，所以其生成元也是对易的
+$$[P_i,P_j]=0\quad i,j=1,2,3$$
+因此可以把$U(\vec{a})$写为
+$$U(\vec{a})=U(a_1\hat{e}_1)U(a_2\hat{e}_2)U(a_3\hat{e}_3)=e^{-\i\vec{a}\cdot\vec{P}}$$
+
+例如，在$\mathrm{L}^2(\mathbb{R}^3)$中，定义平移变换
+$$\left[U(a)\psi\right](\vec{x})=\psi(\vec{x}-\vec{a})$$
+其图像正是把整个函数$\psi$平移了$\vec{a}$，其生成元为
+$$\left[P_i\psi\right](\vec{x})=i\frac{\partial}{\partial a_i}\left[U(a)\psi\right](x)=i\left.\frac{\partial}{\partial a_i}\psi(\vec{x}-\vec{a})\right|_{\vec{a}=0}=-i\frac{\partial}{\partial x_i}\psi(\vec{a})$$
+可以看到正是动量算符，事实上，我们可以定义动量算符为平移变换的生成元。
+\subsection{时间演化}
+这一小节，我们从对称性的角度“推导”薛定谔方程。考虑对系统的一个变换$\alpha(t,t_0)$，其意义是，对于$t_0$时的系统状态，让其自然演化至$t$时刻。假定这个变换保持跃迁概率不变，则其由幺正或反幺正的算子$U(t,t_0)$刻画。
+
+我们再为$U(t,t_0)$做一些合理的假定
+$$U(t,t_0)U(t_0,t_1)=U(t,t_1)$$
+$$U(t_0,t_0)=I$$
+$$U(t,t_0)\psi\ \text{关于}t\text{连续}$$
+由上述知$U(t,t_0)$不能是反幺正算子。（$I$不可能连续地变为反幺正算子）定义
+$$H(t,t_0)=i\frac{\partial U(t,t_0)}{\partial t} U(t_0,t)=-iU(t,t_0)\frac{\partial U(t_0,t)}{\partial t}$$
+$H(t)=H(t,t_0)$是与$t_0$无关的自伴算子，根据下式可以看出
+$$H(t,t_0)=i\frac{\partial U(t,t_0)}{\partial t}U(t_0,t)=i\frac{\partial U(t,t_1)U(t_1,t_0)}{\partial t}U(t_0,t_1)U(t_1,t)=i\frac{\partial U(t,t_1)}{\partial t}U(t_1,t)=H(t,t_1)$$
+$$H(t)^\dagger=-i U(t_0,t)^\dagger\frac{\partial U(t,t_0)^\dagger}{\partial t}=-iU(t,t_0)\frac{\partial U(t_0,t)}{\partial t}=H(t)$$
+并且
+$$i\frac{\partial U(t,t_0)}{\partial t}=H(t)U(t,t_0)$$
+$H(t)$就是薛定谔方程中的哈密顿量。
+
+再来考虑薛定谔方程在时间平移下的变换，薛定谔方程在时间平移下不变，是指对于任意满足薛定谔方程的$\psi(t)$，平移一段时间$\Delta $后的态$\psi_\Delta(t)=\psi(t-\Delta)$也满足薛定谔方程
+$$i\frac{\partial}{\partial t}\psi_\Delta (t)=H(t)\psi_\Delta(t)$$
+显然$\psi_\Delta(t)$满足
+$$i\frac{\partial}{\partial t}\psi_\Delta(t)=H(t-\Delta)\psi_\Delta(t)$$
+两式若相等，只有
+$$H(t)=H(t-\Delta)$$
+即薛定谔方程在时间平移下不变$\Leftrightarrow$体系哈密顿量不含时$\Leftrightarrow$哈密顿量是守恒量
