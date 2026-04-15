@@ -62,20 +62,22 @@ jobs:
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: src/main.tex
+          working_directory: src
+          root_file: main.tex
+          latexmk_use_xelatex: true
           args: -halt-on-error -file-line-error
 
       - name: Verify PDF exists
         shell: bash
         run: |
-          test -f main.pdf || (echo "main.pdf not found" && exit 1)
+          test -f src/main.pdf || (echo "main.pdf not found" && exit 1)
 
       - name: Upload PDF artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pdf-preview-${{ github.event.pull_request.number || github.run_number }}
-          path: main.pdf
+          path: src/main.pdf
           if-no-files-found: error
           retention-days: 7
 
